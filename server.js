@@ -5,6 +5,8 @@ let bodyParser = require('body-parser')
 let session = require('express-session')
 let cookie = require('cookie-parser')
 let Db_interact = require("./models/db_interact")
+
+// Donnée de la base //
 let allRepas;
 
 // Moteur de Template //
