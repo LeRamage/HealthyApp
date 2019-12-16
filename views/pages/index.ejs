@@ -1,0 +1,27 @@
+<% include header %>
+<% if(locals.form_success === undefined) form_success = null %>
+<% if(locals.inscription_success === undefined) inscription_success = false %>
+  <div id="connexion" class="connexion-container">
+      <h1 class="ui dividing header greenFont" style="text-align: center;"><b>Bienvenue sur The Healthy Project</b></h1>
+
+      <form action="/" method="post" class="ui form">
+        <h4 class="ui dividing header greenFont" style="text-align: center;">Formulaire de Connexion</h4>
+        <div class="field">
+          <label for="pseudo" class="greenFont">Pseudo</label>
+          <input type="text" id="pseudo" placeholder="Pseudo" name="pseudo">
+        </div>
+        <div class="field">
+          <label for="pass" class="greenFont">Mot de Passe</label>
+          <input type="password" id="pass" placeholder="Mot de Passe" name="password">
+        </div>
+        <button type="submit" class="ui button" id="btn_login">Connexion</button>
+      </form>
+      <div class="connexion_notif">
+        <div v-if=<%= form_success === null %> ></div>
+        <div class="ui error message" v-else=<%= !form_success %>>Le pseudo et/ou le mot de passe est incorrect</div>
+        <div class="ui positive message" v-if=<%= inscription_success %>>Enregistrement réussi! Vous pouvez maintenant vous connecter</div>
+      </div>
+      <p id="goToInscription" for="inscription">Première visite ? Inscrivez-vous <a href="/inscription">ici</a></p>
+  </div>
+
+<% include footer %>

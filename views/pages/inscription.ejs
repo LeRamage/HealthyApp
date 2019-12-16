@@ -1,0 +1,26 @@
+<% include header %>
+<% if(locals.form_success === undefined) form_success = true %>
+<% if(locals.pseudo_exist === undefined) pseudo_exist = false %>
+<% console.log('form_success : '+form_success);console.log('pseudo_exist : '+pseudo_exist) %>
+    <div id="inscription" class="inscription-container">
+        <h1 class="ui dividing header greenFont" style="text-align: center;"><b>Bienvenue sur The Healthy Project</b></h1>
+        <form action="/inscription" method="POST" class="ui form" v-show='!form_filled'>
+            <h4 class="ui dividing header greenFont" style="text-align: center;">Formulaire d'inscription</h4>
+            <div class="field">
+                <label for="newPseudo" class="greenFont">Pseudo</label>
+                <input id="newPseudo" type="text" name="pseudo" placeholder="Pseudo" v-model="pseudo" :style='stylePseudo'>
+            </div>
+            <div class="field">
+                <label for="newPass" class="greenFont">Mot de Passe</label>
+                <input id="newPass" type="password" name="password" placeholder="Mot de Passe" v-model='pass' :style='stylePass'>
+            </div>
+            <button id="btn_inscription" class="ui button" @click="submit" v-show='!form_filled'>S'inscrire</button>         
+        </form>
+
+        <div class="inscription_notif">
+            <div class="ui error message" v-if=<%= !form_success %>>Un ou plusieurs champs n'ont pas été remplis</div>
+            <div class="ui error message" v-if=<%= pseudo_exist %>>Le Pseudo saisi existe déjà!</div>
+        </div>
+
+    </div>
+<% include footer %>

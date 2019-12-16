@@ -1,0 +1,41 @@
+<% include header %>
+<% if(locals.data_repas === undefined) data_repas = null %>
+
+<div class="container-fluid">
+    <div class="row page-titles">
+        <div class="col-md-12">
+            <ul class="nav customtab" role="tablist">
+                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#tab_synthese" role="tab">
+                    <span class="hidden-sm-up"><i class="ti-home"></i></span> 
+                    <span class="hidden-xs-down">Home</span></a> 
+                </li>
+                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_prescripteurs" role="tab">
+                    <span class="hidden-sm-up"><i class="ti-user"></i></span> 
+                    <span class="hidden-xs-down">Mes chiffres clés</span></a> 
+                </li>
+                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_prospects" role="tab">
+                    <span class="hidden-sm-up"><i class="ti-arrow-top-right"></i></span> 
+                    <span class="hidden-xs-down">Mes graphiques</span></a>
+                </li>
+                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#tab_pilotage" role="tab">
+                    <span class="hidden-sm-up"><i class="ti-bookmark-alt"></i></span> 
+                    <span class="hidden-xs-down">Recettes de cuisines</span></a> 
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-sm border">
+                <div class="card-body">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<% include footer %>
