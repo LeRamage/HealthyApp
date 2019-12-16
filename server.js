@@ -4,6 +4,8 @@ let app = express()
 let bodyParser = require('body-parser')
 let session = require('express-session')
 let cookie = require('cookie-parser')
+let Db_interact = require("./models/db_interact")
+let allRepas;
 
 // Moteur de Template //
 app.set('view engine', 'ejs')
@@ -29,7 +31,7 @@ app.use(require('./middleware/flash'))
 // GET //
 app.get('/', (request,response) => {
     if(request.cookies.userCookie != undefined)
-        response.render('pages/page-wrapper', {isConnected:true,userPseudo:request.cookies.userCookie}) 
+        response.render('pages/page-wrapper', {isConnected:true,userPseudo:request.cookies.userCookie,data_repas:allRepas}) 
     else
         response.render('pages/index')
 })
@@ -46,20 +48,20 @@ app.get('/index', (req,res) =>{
 
 app.get('/app',(req,res) =>{
     if(req.cookies.userCookie)
-        res.render('pages/page-wrapper',{isConnected:true,userPseudo:req.cookies.userCookie})
+        res.render('pages/page-wrapper',{isConnected:true,userPseudo:req.cookies.userCookie,data_repas:allRepas})
     else
         res.render('pages/index',{isConnected:false,form_success:null})
 })
 
 // POST //
 app.post('/', (req,res) =>{
-    let Db_interact = require("./models/db_interact")
     let dataRepas = null
     Db_interact.connectToApp(req.body.pseudo,req.body.password, (resultQuery) =>{
         if(resultQuery.length > 0){
             res.cookie('userCookie', req.body.pseudo, {maxAge: 360000});
             Db_interact.getUserRepas(req.body.pseudo, (resultQuery) => {
-                res.render('pages/page-wrapper', {isConnected:true,userPseudo:req.body.pseudo,data_repas:JSON.stringify(resultQuery)})
+                allRepas = JSON.stringify(resultQuery)
+                res.render('pages/page-wrapper', {isConnected:true,userPseudo:req.body.pseudo,data_repas:allRepas})
             })
         }           
         else
@@ -68,7 +70,6 @@ app.post('/', (req,res) =>{
 })
 
 app.post('/inscription', (req, res) =>{
-    let Db_interact = require("./models/db_interact")
     Db_interact.insertNewUser(req.body.pseudo,req.body.password,(resultQuery) =>{
         if(resultQuery === 'pseudoExist'){
             res.render('pages/inscription',{pseudo_exist:true})
@@ -80,6 +81,16 @@ app.post('/inscription', (req, res) =>{
             res.render('pages/index',{inscription_success:true})
         }
     })
+})
+
+app.post('/addRepas',(req, res) =>{
+    Db_interact.addNewRepas(req.cookies.userCookie,req.body.type_repas,() =>{
+        Db_interact.getUserRepas(req.cookies.userCookie, (resultQuery) => {
+            allRepas = JSON.stringify(resultQuery)
+            res.render('pages/page-wrapper', {isConnected:true,userPseudo:req.body.pseudo,data_repas:allRepas})
+        })
+    })
+    
 })
 
 // app.post('/', (request,response) => {

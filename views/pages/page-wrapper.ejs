@@ -1,7 +1,8 @@
 <% include header %>
 <% if(locals.data_repas === undefined) data_repas = null %>
 
-<div id="result_querry" style="display: none;">{{ data_r = <%= data_repas %> }}</div>
+<div id="result_data_repas" style="display: none;">{{ data_r = <%= data_repas %> }}</div>
+
 <div class="container-fluid" id="cf">
     <input type="text" v-model="data_r" style="display: none;">
     <div class="row page-titles">
@@ -26,12 +27,12 @@
             </ul>
         </div>
     </div>
-    
+  
     <div class="row">
         <div class="col-md-6">
             <div class="card shadow-sm border">
                 <div class="card-body">
-                    <canvas id="myChart"></canvas>
+                    <canvas id="chartCompareRepas"></canvas>
                 </div>
             </div>
         </div>

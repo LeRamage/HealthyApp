@@ -15,7 +15,7 @@ let vmApp = new Vue({
             else if(this.data_r[i].type_repas === 3) type_P++
         }
         let dt = [type_Ve,type_Vi,type_P]
-        let ctx = document.getElementById('myChart')
+        let ctx = document.getElementById('chartCompareRepas')
         let myChart = new Chart(ctx, {
             type:'bar',
             data:{

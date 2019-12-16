@@ -9,7 +9,17 @@
         <ul id="sidebarnav">
           <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="icon-speedometer"></i><span class="hide-menu">Dashboard</a>
               <ul aria-expanded="false" class="collapse">
-                  <li><a href="/app">Ajouter un repas </a></li>
+                  <li>
+                    <a class="has-arrow waves-effect waves-dark" href="javascript:void(1)" aria-expanded="false"><span class="hide-menu"></span>Ajouter un repas </a>
+                    <ul aria-expanded="false" class="collapse">
+                      <form action="/addRepas" method="post">
+                        <input type="checkbox" name="type_repas" value="vege"> Plat végétarien <br>
+                        <input type="checkbox" name="type_repas" value="viande"> Plat de viande <br>
+                        <input type="checkbox" name="type_repas" value="poisson"> Plat de poisson <br>
+                        <button type="submit" class="ui button" id="btn_addRepas">Enregistrer</button>
+                      </form>
+                    </ul>
+                  </li>
               </ul>
           </li>
           <li> <a href="/index" aria-expanded="false" class="waves-effect"><i class="fa fa-power-off"></i><span class="hide-menu">logout</a></li>
