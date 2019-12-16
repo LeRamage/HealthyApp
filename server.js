@@ -59,7 +59,7 @@ app.post('/', (req,res) =>{
         if(resultQuery.length > 0){
             res.cookie('userCookie', req.body.pseudo, {maxAge: 360000});
             Db_interact.getUserRepas(req.body.pseudo, (resultQuery) => {
-                res.render('pages/page-wrapper', {isConnected:true,userPseudo:req.body.pseudo,data_repas:resultQuery})
+                res.render('pages/page-wrapper', {isConnected:true,userPseudo:req.body.pseudo,data_repas:JSON.stringify(resultQuery)})
             })
         }           
         else

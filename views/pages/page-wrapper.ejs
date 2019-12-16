@@ -1,7 +1,9 @@
 <% include header %>
 <% if(locals.data_repas === undefined) data_repas = null %>
 
-<div class="container-fluid">
+<div id="result_querry" style="display: none;">{{ data_r = <%= data_repas %> }}</div>
+<div class="container-fluid" id="cf">
+    <input type="text" v-model="data_r" style="display: none;">
     <div class="row page-titles">
         <div class="col-md-12">
             <ul class="nav customtab" role="tablist">
@@ -24,7 +26,6 @@
             </ul>
         </div>
     </div>
-
     
     <div class="row">
         <div class="col-md-6">
