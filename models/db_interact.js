@@ -41,7 +41,7 @@ class Db_interact{
         switch(type_repas){
             case "vege":
                 tp = 1;
-                break;
+                break; 
             case "viande":
                 tp = 2;
                 break;
