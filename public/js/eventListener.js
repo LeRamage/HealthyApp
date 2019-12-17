@@ -11,4 +11,12 @@ document.addEventListener('DOMContentLoaded', function () {
         $('#chVi').prop('checked', false);
         $('#chVege').prop('checked', false);
     });
+
+    let addRepas = document.getElementsByClassName("addRepas");
+    Array.from(addRepas).forEach(function(element) {
+        element.addEventListener('click', () => {
+            $('.ui.modal').modal('show');
+        });
+    });
+        
 });

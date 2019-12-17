@@ -42,7 +42,45 @@
         </div>
 
         <div class="tab-pane" id="tab_key_datas">
-
+            <div class="table-responsive">
+                <table id="zero_config" class="table table-striped table-bordered no-wrap">
+                    <thead>
+                        <tr>
+                            <th>Heure Repas</th>
+                            <th>L 16</th>
+                            <th>M 17</th>
+                            <th>M 18</th>
+                            <th>J 19</th>
+                            <th>V 20</th>
+                            <th>S 21</th>
+                            <th>D 22</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Midi</td>
+                            <td class="addRepas"><button class="ui positive button" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus iconPlus" aria-hidden="true"></i>Ajouter un repas</button></td>
+                            <td class="addRepas"><button class="ui positive button"><i class="fa fa-plus iconPlus" aria-hidden="true"></i>Ajouter un repas</button></td>
+                            <td class="addRepas"><button class="ui positive button"><i class="fa fa-plus iconPlus" aria-hidden="true"></i>Ajouter un repas</button></td>
+                            <td class="addRepas"><button class="ui positive button"><i class="fa fa-plus iconPlus" aria-hidden="true"></i>Ajouter un repas</button></td>
+                            <td class="addRepas"><button class="ui positive button"><i class="fa fa-plus iconPlus" aria-hidden="true"></i>Ajouter un repas</button></td>
+                            <td class="addRepas"><button class="ui positive button"><i class="fa fa-plus iconPlus" aria-hidden="true"></i>Ajouter un repas</button></td>
+                            <td class="addRepas"><button class="ui positive button"><i class="fa fa-plus iconPlus" aria-hidden="true"></i>Ajouter un repas</button></td>
+                        </tr>
+                        <tr>
+                            <td>Soir</td>
+                            <td class="addRepas"><button class="ui positive button"><i class="fa fa-plus iconPlus" aria-hidden="true"></i>Ajouter un repas</button></td>
+                            <td class="addRepas"><button class="ui positive button"><i class="fa fa-plus iconPlus" aria-hidden="true"></i>Ajouter un repas</button></td>
+                            <td class="addRepas"><button class="ui positive button"><i class="fa fa-plus iconPlus" aria-hidden="true"></i>Ajouter un repas</button></td>
+                            <td class="addRepas"><button class="ui positive button"><i class="fa fa-plus iconPlus" aria-hidden="true"></i>Ajouter un repas</button></td>
+                            <td class="addRepas"><button class="ui positive button"><i class="fa fa-plus iconPlus" aria-hidden="true"></i>Ajouter un repas</button></td>
+                            <td class="addRepas"><button class="ui positive button"><i class="fa fa-plus iconPlus" aria-hidden="true"></i>Ajouter un repas</button></td>
+                            <td class="addRepas"><button class="ui positive button"><i class="fa fa-plus iconPlus" aria-hidden="true"></i>Ajouter un repas</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
         </div>
 
         <div class="tab-pane" id="tab_graphs">
@@ -54,6 +92,41 @@
         </div>
     </div>
 
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ajouter un nouveau repas</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="/addRepas" method="post" id="formAddRepas">
+            <div class="modal-body">
+                <label>
+                <input type="checkbox" class="option-input checkbox" name="type_repas" value="vege" id="chVege"/>
+                Plat végétarien
+                </label>
+                <label>
+                <input type="checkbox" class="option-input checkbox" name="type_repas" value="viande" id="chVi"/>
+                Plat de viande
+                </label>
+                <label>
+                <input type="checkbox" class="option-input checkbox" name="type_repas" value="poisson" id="chPo"/>
+                Plat de poisson
+                </label>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit"  class="btn btn-success"><i class="fas fa-check" style="margin-right: 1em;"></i>Enregistrer</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+      </div>
+    </div>
 </div>
 
 <% include footer %>
