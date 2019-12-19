@@ -1,6 +1,3 @@
-$(document).ready(function(){	
-    $('#datePicker').calendar({
-      type: 'month'
-    });
+$(function(){
     $('#zero_config').DataTable();
-})
+});

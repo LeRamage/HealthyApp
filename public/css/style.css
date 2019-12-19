@@ -2,7 +2,7 @@
     margin-top: 2em;
 }
 
-#btn_login, #btn_inscription,#btn_addRepas{
+#btn_login, #btn_inscription{
     background-color: #80af43;
 }
 
@@ -131,10 +131,14 @@ body label {
     max-width: 80% !important;
 }
 
-.addRepas{
+/* .addRepas{
     text-align: right !important;
-}
+} */
 
 .iconPlus{
     margin-right: 1em;
+}
+
+#cf-repas{
+    margin-top: 3em;
 }

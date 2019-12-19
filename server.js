@@ -55,6 +55,7 @@ app.get('/app',(req,res) =>{
         res.render('pages/index',{isConnected:false,form_success:null})
 })
 
+
 // POST //
 app.post('/', (req,res) =>{
     let dataRepas = null
@@ -86,6 +87,7 @@ app.post('/inscription', (req, res) =>{
 })
 
 app.post('/addRepas',(req, res) =>{
+    console.log(req.body.type_repas)
     Db_interact.addNewRepas(req.cookies.userCookie,req.body.type_repas,() =>{
         Db_interact.getUserRepas(req.cookies.userCookie, (resultQuery) => {
             allRepas = JSON.stringify(resultQuery)
