@@ -50,11 +50,24 @@ class Db_interact{
                 break;
         }
         let d = moment(date,'DD-MM-YYYY').format('YYYY-MM-DD')
-        console.log("date : "+d)
         connexion.query('SELECT ID FROM user WHERE pseudo = ?',[pseudo],(error,result,fields) =>{
             if(error) throw error
-            console.log('ID : '+result[0].ID)
             connexion.query('INSERT INTO userrepas SET type_repas = ?, date = ?, id_user = ?, heure_repas = ?',[tp, d, result[0].ID, heure_repas],(error,resultInsertR,field) =>{
+                if(error) throw error
+                cb(resultInsertR)
+            })
+        })
+    }
+
+    static suppRepas(pseudo,date,heure_repas,cb){
+        console.log('pseudo : '+pseudo)
+        let d = moment(date,'DD-MM-YYYY').format('YYYY-MM-DD')
+        connexion.query('SELECT ID FROM user WHERE pseudo = ?',[pseudo],(error,result,fields) =>{
+            console.log(result)
+            console.log(result[0])
+            console.log(result[0].ID)
+            if(error) throw error
+            connexion.query('DELETE FROM userrepas WHERE id_user = ? AND date = ? AND heure_repas = ? ',[result[0].ID, d, heure_repas],(error,resultInsertR,field) =>{
                 if(error) throw error
                 cb(resultInsertR)
             })
