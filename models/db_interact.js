@@ -54,7 +54,7 @@ class Db_interact{
         connexion.query('SELECT ID FROM user WHERE pseudo = ?',[pseudo],(error,result,fields) =>{
             if(error) throw error
             console.log('ID : '+result[0].ID)
-            connexion.query('INSERT INTO userrepas SET type_repas = ?, date = ?, id_user = ?, heure_repas = ?',[tp,d,result[0].ID, heure_repas],(error,resultInsertR,field) =>{
+            connexion.query('INSERT INTO userrepas SET type_repas = ?, date = ?, id_user = ?, heure_repas = ?',[tp, d, result[0].ID, heure_repas],(error,resultInsertR,field) =>{
                 if(error) throw error
                 cb(resultInsertR)
             })

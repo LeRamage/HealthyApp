@@ -87,23 +87,12 @@ app.post('/inscription', (req, res) =>{
     })
 })
 
-app.post('/addRepasMidi',(req, res) =>{
+app.post('/addRepas',(req, res) =>{
     console.log(req.body)
     Db_interact.addNewRepas(req.cookies.userCookie,req.body.type_repas,req.body.date,req.body.heure,() =>{
         Db_interact.getUserRepas(req.cookies.userCookie, (resultQuery) => {
             allRepas = JSON.stringify(resultQuery)
-            res.render('pages/page-wrapper', {isConnected:true,userPseudo:req.body.pseudo,data_repas:allRepas})
-        })
-    })
-    
-})
-
-app.post('/addRepasSoir',(req, res) =>{
-    console.log(req.body)
-    Db_interact.addNewRepas(req.cookies.userCookie,req.body.type_repas,req.body.date,req.body.heure,() =>{
-        Db_interact.getUserRepas(req.cookies.userCookie, (resultQuery) => {
-            allRepas = JSON.stringify(resultQuery)
-            res.render('pages/page-wrapper', {isConnected:true,userPseudo:req.body.pseudo,data_repas:allRepas})
+            res.render('pages/page-wrapper', {isConnected:true,userPseudo:req.cookies.userCookie,data_repas:allRepas})
         })
     })
     
