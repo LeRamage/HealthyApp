@@ -2,24 +2,26 @@
 <div class="modal fade" id="modal-addRepas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header modal-colored-header bg-success">
           <h5 class="modal-title" id="exampleModalLabel">Ajouter un nouveau repas</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="/addRepas" method="post" id="formAddRepas">
+        <form action="/addRepasMidi" method="post" id="formAddRepas">
+            <input type="text" name="date" id="date_value" value="" style="display: none;">
+            <input type="text" name="heure" id="heure_value" value="" style="display: none;">
             <div class="modal-body">
                 <label>
-                <input type="checkbox" class="option-input checkbox" name="type_repas" value="vege" id="chVege"/>
+                <input type="checkbox" id="chVege" class="option-input checkbox" name="type_repas" value="vege" />
                 Plat végétarien
                 </label>
                 <label>
-                <input type="checkbox" class="option-input checkbox" name="type_repas" value="viande" id="chVi"/>
+                <input type="checkbox" id="chVi" class="option-input checkbox" name="type_repas" value="viande" />
                 Plat de viande
                 </label>
                 <label>
-                <input type="checkbox" class="option-input checkbox" name="type_repas" value="poisson" id="chPo"/>
+                <input type="checkbox" id="chPo" class="option-input checkbox" name="type_repas" value="poisson" />
                 Plat de poisson
                 </label>
             </div>

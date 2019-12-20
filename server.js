@@ -9,6 +9,7 @@ let Db_interact = require("./models/db_interact")
 // Donnée de la base //
 let allRepas;
 
+
 // Moteur de Template //
 app.set('view engine', 'ejs')
 
@@ -17,6 +18,7 @@ app.use('/assets',express.static('public'))
 app.use('/sem',express.static('semantic'))
 app.use('/elite',express.static('eliteA'))
 app.use('/elite/module',express.static('mod'))
+app.use('/models',express.static('models'))
 app.use(bodyParser.urlencoded({ extended :false }))
 app.use(bodyParser.json())
 app.use(cookie())
@@ -58,7 +60,6 @@ app.get('/app',(req,res) =>{
 
 // POST //
 app.post('/', (req,res) =>{
-    let dataRepas = null
     Db_interact.connectToApp(req.body.pseudo,req.body.password, (resultQuery) =>{
         if(resultQuery.length > 0){
             res.cookie('userCookie', req.body.pseudo, {maxAge: 360000});
@@ -86,9 +87,20 @@ app.post('/inscription', (req, res) =>{
     })
 })
 
-app.post('/addRepas',(req, res) =>{
-    console.log(req.body.type_repas)
-    Db_interact.addNewRepas(req.cookies.userCookie,req.body.type_repas,() =>{
+app.post('/addRepasMidi',(req, res) =>{
+    console.log(req.body)
+    Db_interact.addNewRepas(req.cookies.userCookie,req.body.type_repas,req.body.date,req.body.heure,() =>{
+        Db_interact.getUserRepas(req.cookies.userCookie, (resultQuery) => {
+            allRepas = JSON.stringify(resultQuery)
+            res.render('pages/page-wrapper', {isConnected:true,userPseudo:req.body.pseudo,data_repas:allRepas})
+        })
+    })
+    
+})
+
+app.post('/addRepasSoir',(req, res) =>{
+    console.log(req.body)
+    Db_interact.addNewRepas(req.cookies.userCookie,req.body.type_repas,req.body.date,req.body.heure,() =>{
         Db_interact.getUserRepas(req.cookies.userCookie, (resultQuery) => {
             allRepas = JSON.stringify(resultQuery)
             res.render('pages/page-wrapper', {isConnected:true,userPseudo:req.body.pseudo,data_repas:allRepas})

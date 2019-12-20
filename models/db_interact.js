@@ -29,14 +29,14 @@ class Db_interact{
     static getUserRepas(pseudo,cb){
         connexion.query('SELECT ID FROM user WHERE pseudo = ?',[pseudo],(error,result,fields) =>{
             if(error) throw error
-            connexion.query('SELECT type_repas FROM userrepas WHERE id_user = ? AND date >= ? AND date <= ?',[result[0].ID,moment().startOf('month').format('YYYY-MM-DD'),moment().endOf('month').format('YYYY-MM-DD')],(error,resultTR,field) => {
+            connexion.query('SELECT type_repas,date,heure_repas FROM userrepas WHERE id_user = ? AND date >= ? AND date <= ? ORDER BY date',[result[0].ID,moment().startOf('month').format('YYYY-MM-DD'),moment().endOf('month').format('YYYY-MM-DD')],(error,resultTR,field) => {
                 if(error) throw error
                 cb(resultTR)
             })
         })
     }
 
-    static addNewRepas(pseudo,type_repas,cb){
+    static addNewRepas(pseudo,type_repas,date,heure_repas,cb){
         let tp = 0;
         switch(type_repas){
             case "vege":
@@ -49,11 +49,12 @@ class Db_interact{
                 tp = 3
                 break;
         }
-        
+        let d = moment(date,'DD-MM-YYYY').format('YYYY-MM-DD')
+        console.log("date : "+d)
         connexion.query('SELECT ID FROM user WHERE pseudo = ?',[pseudo],(error,result,fields) =>{
             if(error) throw error
             console.log('ID : '+result[0].ID)
-            connexion.query('INSERT INTO userrepas SET type_repas = ?, date = ?, id_user = ?',[tp,moment().format('YYYY-MM-DD'),result[0].ID],(error,resultInsertR,field) =>{
+            connexion.query('INSERT INTO userrepas SET type_repas = ?, date = ?, id_user = ?, heure_repas = ?',[tp,d,result[0].ID, heure_repas],(error,resultInsertR,field) =>{
                 if(error) throw error
                 cb(resultInsertR)
             })
