@@ -1,22 +1,61 @@
 // VARIABLES // 
-let startOfWeek_init = moment().startOf('week').add(1,'days')
+let startOfWeek_init = moment().startOf('month').day('monday')
 let tab_daysOfWeek_init = create_tdow(startOfWeek_init)
+let startOfWeek_nxt = startOfWeek_init
 
 // VUE MODEL //
-let vmInscription = new Vue({ el: '#inscription'})
+let vmInscription = new Vue({ 
+    el: '#inscription',
+    data:{
+        form_success:true,
+        pseudo_exist:false,
+        notSamePass:false
+    }
+})
 
 let vmApp = new Vue({
     el:'#app',
+    components: {
+        vuejsDatepicker
+    },
     data:{
         data_r:{},
-        dates:tab_daysOfWeek_init,
-        repas_midi:[],
-        repas_soir:[]
+        dates_w1:tab_daysOfWeek_init,
+        dates_w2:[],
+        dates_w3:[],
+        dates_w4:[],
+        repas_midi_w1:[],
+        repas_soir_w1:[],
+        repas_midi_w2:[],
+        repas_soir_w2:[],
+        repas_midi_w3:[],
+        repas_soir_w3:[],
+        repas_midi_w4:[],
+        repas_soir_w4:[],
     },
     
     mounted:function(){
-        this.repas_midi = createRepas(tab_daysOfWeek_init,this.data_r,'midi')
-        this.repas_soir = createRepas(tab_daysOfWeek_init,this.data_r,'soir')
+        this.repas_midi_w1 = createRepas(tab_daysOfWeek_init,this.data_r,'midi')
+        this.repas_soir_w1 = createRepas(tab_daysOfWeek_init,this.data_r,'soir')
+        for(j = 0; j < 3; j++){
+            startOfWeek_nxt = startOfWeek_nxt.add(7,'days')
+            if(j == 0) {
+                this.dates_w2 = create_tdow(startOfWeek_nxt)
+                this.repas_midi_w2 = createRepas(this.dates_w2,this.data_r,'midi')
+                this.repas_soir_w2 = createRepas(this.dates_w2,this.data_r,'soir')
+            }
+            else if (j == 1){
+                this.dates_w3 = create_tdow(startOfWeek_nxt)
+                this.repas_midi_w3 = createRepas(this.dates_w3,this.data_r,'midi')
+                this.repas_soir_w3 = createRepas(this.dates_w3,this.data_r,'soir')
+
+            } 
+            else if (j == 2){
+                this.dates_w4 = create_tdow(startOfWeek_nxt)
+                this.repas_midi_w4 = createRepas(this.dates_w4,this.data_r,'midi')
+                this.repas_soir_w4 = createRepas(this.dates_w4,this.data_r,'soir')
+            }
+        }
         
         let type_Vi = 0, type_Ve = 0, type_P = 0
         this.data_r.forEach(element => {

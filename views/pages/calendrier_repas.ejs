@@ -1,27 +1,128 @@
-<div class="table-responsive">
-    <table id="zero_config" class="table table-striped table-bordered no-wrap">
-        <thead>
-            <tr>
-                <th></th>
-                <th v-for="date in dates"> {{date}}</th>
-            </tr >
-        </thead>
-        <tbody>
-            <tr>
-                <td>MIDI</td>
-                <td style="vertical-align: middle;" v-for="repas in repas_midi" v-html="repas.type_repas"></td>
-            </tr>
-            <tr>
-                <td>SOIR</td>
-                <td style="vertical-align: middle;" v-for="repas in repas_soir" v-html="repas.type_repas"></td>
-            </tr>
-        </tbody>
-    </table>
+<div class="nav-table">
+    <button type="submit" class="btn btn-outline-primary"><i class="fas fa-chevron-left" style="margin-right: 1em;"></i> Mois Précédent</button>
+    <button type="submit" class="btn btn-outline-primary"> Mois Suivant<i class="fas fa-chevron-right" style="margin-left: 1em;"></i></button>    
 </div>
 
-<div id="footer-calendrier" style="text-align: right;">
-    <button type="submit" class="btn btn-outline-primary"><i class="fas fa-chevron-left" style="margin-right: 1em;"></i>Précédent</button>
-    <button type="submit" class="btn btn-outline-primary">Suivant<i class="fas fa-chevron-right" style="margin-left: 1em;"></i></button>    
+<div class="row">
+    <div class="col">
+        <table id="sem1" class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th></th>
+                    <th v-for="date in dates_w1"> {{date}}</th>
+                </tr >
+            </thead>
+            <tbody>
+                <tr>
+                    <td>MIDI</td>
+                    <td style="vertical-align: middle;" v-for="repas in repas_midi_w1" v-html="repas.type_repas"></td>
+                </tr>
+                <tr>
+                    <td>SOIR</td>
+                    <td style="vertical-align: middle;" v-for="repas in repas_soir_w1" v-html="repas.type_repas"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row table-margin">
+    <div class="col">
+        <hr class="solid">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <table id="sem2" class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th></th>
+                    <th v-for="date in dates_w2"> {{date}}</th>
+                </tr >
+            </thead>
+            <tbody>
+                <tr>
+                    <td>MIDI</td>
+                    <td style="vertical-align: middle;" v-for="repas in repas_midi_w2" v-html="repas.type_repas"></td>
+                </tr>
+                <tr>
+                    <td>SOIR</td>
+                    <td style="vertical-align: middle;" v-for="repas in repas_soir_w2" v-html="repas.type_repas"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row table-margin">
+    <div class="col">
+        <hr class="solid">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <table id="sem3" class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th></th>
+                    <th v-for="date in dates_w3"> {{date}}</th>
+                </tr >
+            </thead>
+            <tbody>
+                <tr>
+                    <td>MIDI</td>
+                    <td style="vertical-align: middle;" v-for="repas in repas_midi_w3" v-html="repas.type_repas"></td>
+                </tr>
+                <tr>
+                    <td>SOIR</td>
+                    <td style="vertical-align: middle;" v-for="repas in repas_soir_w3" v-html="repas.type_repas"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>       
+</div>
+
+<div class="row table-margin">
+    <div class="col">
+        <hr class="solid">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <table id="sem4" class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th></th>
+                    <th v-for="date in dates_w4"> {{date}}</th>
+                </tr >
+            </thead>
+            <tbody>
+                <tr>
+                    <td>MIDI</td>
+                    <td style="vertical-align: middle;" v-for="repas in repas_midi_w4" v-html="repas.type_repas"></td>
+                </tr>
+                <tr>
+                    <td>SOIR</td>
+                    <td style="vertical-align: middle;" v-for="repas in repas_soir_w4" v-html="repas.type_repas"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row table-margin">
+    <div class="col">
+        <hr class="solid">
+    </div>
+</div>
+
+<div class="nav-table">
+    <!-- <vuejs-datepicker :minimumView="'month'" :maximumView="'month'"></vuejs-datepicker> -->
+    <button type="submit" class="btn btn-outline-primary"><i class="fas fa-chevron-left" style="margin-right: 1em;"></i> Mois Précédent</button>
+    <button type="submit" class="btn btn-outline-primary"> Mois Suivant<i class="fas fa-chevron-right" style="margin-left: 1em;"></i></button>    
 </div>
 
 <% include modals %>

@@ -74,16 +74,16 @@ app.post('/', (req,res) =>{
 })
 
 app.post('/inscription', (req, res) =>{
-    Db_interact.insertNewUser(req.body.pseudo,req.body.password,(resultQuery) =>{
-        if(resultQuery === 'pseudoExist'){
-            res.render('pages/inscription',{pseudo_exist:true})
-        }
-        else if(resultQuery === 'emptyInputs'){
-            res.render('pages/inscription',{form_success:false})
-        }
-        else{
+    Db_interact.insertNewUser(req.body.pseudo,req.body.password,req.body.confirmPassword,(resultQuery) =>{
+        if(resultQuery === 'pseudoExist')
+            res.render('pages/inscription',{pseudo_exist:true})      
+        else if(resultQuery === 'emptyInputs')
+            res.render('pages/inscription',{form_success:false})       
+        else if(resultQuery === 'notSamePass')
+            res.render('pages/inscription',{notSamePass:true})      
+        else
             res.render('pages/index',{inscription_success:true})
-        }
+        
     })
 })
 

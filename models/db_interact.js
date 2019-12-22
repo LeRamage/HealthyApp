@@ -10,8 +10,9 @@ class Db_interact{
         })
     }
 
-    static insertNewUser(pseudo,password,cb){
-        if(pseudo === '' || password === '') cb('emptyInputs')  
+    static insertNewUser(pseudo,password,confirmPassword,cb){
+        if(pseudo === '' || password === '') cb('emptyInputs')
+        if(password !== confirmPassword) cb('notSamePass')
         else{
             connexion.query('SELECT * FROM user WHERE pseudo = ?',[pseudo], (error, result, fields) => {
                 if (error) throw error
