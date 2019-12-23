@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let chPo = document.getElementById('chPo')
     let btnAddRepas = document.getElementsByClassName('btnAddRepas')
     let btnSuppRepas = document.getElementsByClassName('btnSuppRepas')
+    let datepicker = document.getElementsByClassName('datePicker')
 
     chVege.addEventListener('change', ()=>{
         $('#chVi').prop('checked', false);
@@ -40,6 +41,13 @@ document.addEventListener('DOMContentLoaded', function () {
             let heure_repas = element.dataset.heure
             $('#date_supp').val(date)
             $('#heure_supp').val(heure_repas)
+        })
+    })
+
+    Array.from(datepicker).forEach((element) =>{
+        pickmeup(element);
+        element.addEventListener('pickmeup-show', function (e) {
+            e.preventDefault(); // Showing can be canceled if needed
         })
     })
 });

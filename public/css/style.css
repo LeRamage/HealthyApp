@@ -127,10 +127,6 @@ body label {
     line-height: 20px;
 }
 
-#datePicker input{
-    max-width: 80% !important;
-}
-
 .iconPlus{
     margin-right: 1em;
 }
@@ -156,4 +152,15 @@ body label {
 .nav-table{
     text-align: right; 
     margin-bottom: 3em;
+}
+
+.datepicker{
+    position: absolute !important;
+    top: 17em !important;
+    right: 8em !important;
+    left: unset !important;
+}
+
+.dtDesign{
+    margin-top: 2em;
 }
