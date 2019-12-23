@@ -5,7 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let chPo = document.getElementById('chPo')
     let btnAddRepas = document.getElementsByClassName('btnAddRepas')
     let btnSuppRepas = document.getElementsByClassName('btnSuppRepas')
-    let datepicker = document.getElementsByClassName('datePicker')
+    let datepickerT = document.getElementById('dtTop')
+    let datepickerB = document.getElementById('dtBot')
 
     chVege.addEventListener('change', ()=>{
         $('#chVi').prop('checked', false);
@@ -26,6 +27,14 @@ document.addEventListener('DOMContentLoaded', function () {
         chPo.checked ? document.getElementById("btn_addRepas").disabled = false : document.getElementById("btn_addRepas").disabled = true 
     });
 
+    datepickerT.addEventListener('click',()=>{
+        pickmeup('#dtTop').show();
+    })
+
+    datepickerB.addEventListener('click',()=>{
+        pickmeup('#dtBot').show();
+    })
+
     Array.from(btnAddRepas).forEach(function(element) {
         element.addEventListener('click',()=>{
             let date = element.dataset.date
@@ -44,10 +53,4 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     })
 
-    Array.from(datepicker).forEach((element) =>{
-        pickmeup(element);
-        element.addEventListener('pickmeup-show', function (e) {
-            e.preventDefault(); // Showing can be canceled if needed
-        })
-    })
 });
