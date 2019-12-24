@@ -1,10 +1,4 @@
 $(function(){
-    // $('.datePicker').datepicker({
-    //     format: "mm-yyyy",
-    //     weekStart: 1,
-    //     viewMode: 1,
-    //     minViewMode: 1
-    // });
     pickmeup.defaults.locales['fr'] = {
         days: ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'],
         daysShort: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
