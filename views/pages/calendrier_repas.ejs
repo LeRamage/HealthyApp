@@ -1,10 +1,15 @@
+<% if(locals.monthNext === undefined) monthNext = null %>
+<% if(locals.monthPrev === undefined) monthPrev = null %>
+
 <div id="calendrierRepas">
-    <div class="result_data_repas" style="display: none;">{{ data_r = <%= data_repas %> }}</div>
-    <input type="text" v-model="data_r" style="display: none;">
+    <div id="result_data_repas_calendrier" style="display: none;"><%= data_repas %></div>
+    <div id="nxtMonth" style="display:none;"><%= monthNext %></div>
+    <div id="prevMonth" style="display:none;"><%= monthPrev %></div>
+
     <div class="nav-table">
         <button id="dtTop" class="btn btn-outline-primary"><i class="far fa-calendar-alt"></i></button>
-        <button class="btn btn-outline-primary"><i class="fas fa-chevron-left" style="margin-right: 1em;"></i> Mois Précédent</button>
-        <button class="btn btn-outline-primary"> Mois Suivant<i class="fas fa-chevron-right" style="margin-left: 1em;"></i></button>    
+        <button class="btn btn-outline-primary" v-on:click="prevM"><i class="fas fa-chevron-left" style="margin-right: 1em;"></i> Mois Précédent</button>
+        <button class="btn btn-outline-primary" v-on:click="nxtM"> Mois Suivant<i class="fas fa-chevron-right" style="margin-left: 1em;"></i></button>    
     </div>
     
     <div class="row">
@@ -13,17 +18,17 @@
                 <thead class="thead-dark">
                     <tr>
                         <th></th>
-                        <th v-for="date in dates_w1"> {{date}}</th>
+                        <th v-for="date in dates_w1" :key="date.id"> {{date.date}}</th>
                     </tr >
                 </thead>
                 <tbody>
                     <tr>
                         <td>MIDI</td>
-                        <td style="vertical-align: middle;" v-for="repas in repas_midi_w1" v-html="repas.type_repas"></td>
+                        <td style="vertical-align: middle;" v-for="repas in repas_midi_w1" :key="repas.id" v-html="repas.type_repas"></td>
                     </tr>
                     <tr>
                         <td>SOIR</td>
-                        <td style="vertical-align: middle;" v-for="repas in repas_soir_w1" v-html="repas.type_repas"></td>
+                        <td style="vertical-align: middle;" v-for="repas in repas_soir_w1" :key="repas.id" v-html="repas.type_repas"></td>
                     </tr>
                 </tbody>
             </table>
@@ -42,17 +47,17 @@
                 <thead class="thead-dark">
                     <tr>
                         <th></th>
-                        <th v-for="date in dates_w2"> {{date}}</th>
+                        <th v-for="date in dates_w2" :key="date.id"> {{date.date}}</th>
                     </tr >
                 </thead>
                 <tbody>
                     <tr>
                         <td>MIDI</td>
-                        <td style="vertical-align: middle;" v-for="repas in repas_midi_w2" v-html="repas.type_repas"></td>
+                        <td style="vertical-align: middle;" v-for="repas in repas_midi_w2" :key="repas.id" v-html="repas.type_repas"></td>
                     </tr>
                     <tr>
                         <td>SOIR</td>
-                        <td style="vertical-align: middle;" v-for="repas in repas_soir_w2" v-html="repas.type_repas"></td>
+                        <td style="vertical-align: middle;" v-for="repas in repas_soir_w2" :key="repas.id" v-html="repas.type_repas"></td>
                     </tr>
                 </tbody>
             </table>
@@ -71,17 +76,17 @@
                 <thead class="thead-dark">
                     <tr>
                         <th></th>
-                        <th v-for="date in dates_w3"> {{date}}</th>
+                        <th v-for="date in dates_w3" :key="date.id"> {{date.date}}</th>
                     </tr >
                 </thead>
                 <tbody>
                     <tr>
                         <td>MIDI</td>
-                        <td style="vertical-align: middle;" v-for="repas in repas_midi_w3" v-html="repas.type_repas"></td>
+                        <td style="vertical-align: middle;" v-for="repas in repas_midi_w3" :key="repas.id" v-html="repas.type_repas"></td>
                     </tr>
                     <tr>
                         <td>SOIR</td>
-                        <td style="vertical-align: middle;" v-for="repas in repas_soir_w3" v-html="repas.type_repas"></td>
+                        <td style="vertical-align: middle;" v-for="repas in repas_soir_w3" :key="repas.id" v-html="repas.type_repas"></td>
                     </tr>
                 </tbody>
             </table>
@@ -100,17 +105,47 @@
                 <thead class="thead-dark">
                     <tr>
                         <th></th>
-                        <th v-for="date in dates_w4"> {{date}}</th>
+                        <th v-for="date in dates_w4" :key="date.id"> {{date.date}}</th>
                     </tr >
                 </thead>
                 <tbody>
                     <tr>
                         <td>MIDI</td>
-                        <td style="vertical-align: middle;" v-for="repas in repas_midi_w4" v-html="repas.type_repas"></td>
+                        <td style="vertical-align: middle;" v-for="repas in repas_midi_w4" :key="repas.id" v-html="repas.type_repas"></td>
                     </tr>
                     <tr>
                         <td>SOIR</td>
-                        <td style="vertical-align: middle;" v-for="repas in repas_soir_w4" v-html="repas.type_repas"></td>
+                        <td style="vertical-align: middle;" v-for="repas in repas_soir_w4" :key="repas.id" v-html="repas.type_repas"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="row table-margin">
+        <div class="col">
+            <hr class="solid">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <table id="sem4" class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th></th>
+                        <th v-for="date in dates_w5" v-if="date.id < 2" :key="date.id"> {{date.date}}</th>
+                        <th v-for="date in dates_w5" v-if="date.id >= 2" :key="date.id" class="outCurentMonth"> {{date.date}}</th>
+                    </tr >
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>MIDI</td>
+                        <td style="vertical-align: middle;" v-for="repas in repas_midi_w5" :key="repas.id" v-html="repas.type_repas"></td>
+                    </tr>
+                    <tr>
+                        <td>SOIR</td>
+                        <td style="vertical-align: middle;" v-for="repas in repas_soir_w5" :key="repas.id" v-html="repas.type_repas"></td>
                     </tr>
                 </tbody>
             </table>
@@ -125,8 +160,8 @@
     
     <div class="nav-table">
         <button id="dtBot" class="btn btn-outline-primary"><i class="far fa-calendar-alt"></i></button>
-        <button type="submit" class="btn btn-outline-primary"><i class="fas fa-chevron-left" style="margin-right: 1em;"></i> Mois Précédent</button>
-        <button type="submit" class="btn btn-outline-primary"> Mois Suivant<i class="fas fa-chevron-right" style="margin-left: 1em;"></i></button>    
+        <button type="submit" class="btn btn-outline-primary" v-on:click="prevM"><i class="fas fa-chevron-left" style="margin-right: 1em;"></i> Mois Précédent</button>
+        <button type="submit" class="btn btn-outline-primary" v-on:click="nxtM"> Mois Suivant<i class="fas fa-chevron-right" style="margin-left: 1em;"></i></button>    
     </div>
     
     <% include modals %>

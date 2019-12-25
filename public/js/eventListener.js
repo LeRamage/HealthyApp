@@ -29,6 +29,11 @@ document.addEventListener('DOMContentLoaded', function () {
         datepickerT.addEventListener('click',()=>{
             pickmeup('#dtTop').show();
         })
+
+        datepickerT.addEventListener('pickmeup-change',(e)=>{
+            console.log(e.detail.formatted_date);
+            console.log(e.detail.date);   
+        })
     
         datepickerB.addEventListener('click',()=>{
             pickmeup('#dtBot').show();

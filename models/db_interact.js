@@ -11,8 +11,8 @@ class Db_interact{
     }
 
     static insertNewUser(pseudo,password,confirmPassword,cb){
-        if(pseudo === '' || password === '') cb('emptyInputs')
-        if(password !== confirmPassword) cb('notSamePass')
+        if(pseudo === '' || password === '') {cb('emptyInputs')}
+        else if(password !== confirmPassword) {cb('notSamePass')}
         else{
             connexion.query('SELECT * FROM user WHERE pseudo = ?',[pseudo], (error, result, fields) => {
                 if (error) throw error
@@ -27,10 +27,10 @@ class Db_interact{
         }
     }
 
-    static getUserRepas(pseudo,cb){
+    static getUserRepas(pseudo,date,cb){
         connexion.query('SELECT ID FROM user WHERE pseudo = ?',[pseudo],(error,result,fields) =>{
             if(error) throw error
-            connexion.query('SELECT type_repas,date,heure_repas FROM userrepas WHERE id_user = ? AND date >= ? AND date <= ? ORDER BY date',[result[0].ID,moment().startOf('month').format('YYYY-MM-DD'),moment().endOf('month').format('YYYY-MM-DD')],(error,resultTR,field) => {
+            connexion.query('SELECT type_repas,date,heure_repas FROM userrepas WHERE id_user = ? AND date >= ? AND date <= ? ORDER BY date',[result[0].ID,moment(date,'YYYY-MM-DD').startOf('month').format('YYYY-MM-DD'),moment(date,'YYYY-MM-DD').endOf('month').format('YYYY-MM-DD')],(error,resultTR,field) => {
                 if(error) throw error
                 cb(resultTR)
             })
@@ -61,12 +61,8 @@ class Db_interact{
     }
 
     static suppRepas(pseudo,date,heure_repas,cb){
-        console.log('pseudo : '+pseudo)
         let d = moment(date,'DD-MM-YYYY').format('YYYY-MM-DD')
         connexion.query('SELECT ID FROM user WHERE pseudo = ?',[pseudo],(error,result,fields) =>{
-            console.log(result)
-            console.log(result[0])
-            console.log(result[0].ID)
             if(error) throw error
             connexion.query('DELETE FROM userrepas WHERE id_user = ? AND date = ? AND heure_repas = ? ',[result[0].ID, d, heure_repas],(error,resultInsertR,field) =>{
                 if(error) throw error

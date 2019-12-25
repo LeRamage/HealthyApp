@@ -1,30 +1,27 @@
 <% include header %>
-<% if(locals.form_success === undefined) form_success = true %>
-<% if(locals.pseudo_exist === undefined) pseudo_exist = false %>
-<% if(locals.notSamePass === undefined) notSamePass = false %>
     <div id="inscription" class="inscription-container">
         <h1 class="ui dividing header greenFont" style="text-align: center;"><b>Bienvenue sur The Healthy Project</b></h1>
-        <form action="/inscription" method="POST" class="ui form">
+        <div class="ui form">
             <h4 class="ui dividing header greenFont" style="text-align: center;">Formulaire d'inscription</h4>
             <div class="field">
                 <label for="newPseudo" class="greenFont">Pseudo</label>
-                <input id="newPseudo" type="text" name="pseudo" placeholder="Pseudo">
+                <input id="newPseudo" v-model="pseudo" type="text" name="pseudo" placeholder="Pseudo">
             </div>
             <div class="field">
                 <label for="newPass" class="greenFont">Mot de Passe</label>
-                <input id="newPass" type="password" name="password" placeholder="Mot de Passe">
+                <input id="newPass" v-model="password" type="password" name="password" placeholder="Mot de Passe">
             </div>
             <div class="field">
                 <label for="newPass" class="greenFont">Confirmation Mot de Passe</label>
-                <input id="confirmNewPass" type="password" name="confirmPassword" placeholder="Mot de Passe">
+                <input id="confirmNewPass" v-model="confirmPassword" type="password" name="confirmPassword" placeholder="Mot de Passe">
             </div>
-            <button id="btn_inscription" class="ui button">S'inscrire</button>         
-        </form>
+            <button id="btn_inscription" v-on:click="sendRequestInscription" class="ui button">S'inscrire</button>         
+        </div>
 
         <div class="inscription_notif">
-            <div class="ui error message" v-if=<%= !form_success %>>Un ou plusieurs champs n'ont pas été remplis</div>
-            <div class="ui error message" v-if=<%= pseudo_exist %>>Le Pseudo saisi existe déjà!</div>
-            <div class="ui error message" v-if=<%= notSamePass %> >Vous avez saisi deux mots de passe différents</div>
+            <div class="ui error message" v-if="form_success">Un ou plusieurs champs n'ont pas été remplis</div>
+            <div class="ui error message" v-if="pseudo_exist">Le Pseudo saisi existe déjà!</div>
+            <div class="ui error message" v-if="notSamePass" >Vous avez saisi deux mots de passe différents</div>
         </div>
 
     </div>
