@@ -105,19 +105,22 @@ app.post('/inscription', (req, res) =>{
 })
 
 app.post('/addRepas',(req, res) =>{
+    console.log(req.body)
     Db_interact.addNewRepas(req.cookies.userCookie,req.body.type_repas,req.body.date,req.body.heure,() =>{
-        Db_interact.getUserRepas(req.cookies.userCookie,req.body.date,(resultQuery) => {
+        Db_interact.getUserRepas(req.cookies.userCookie,moment(req.body.date,'DD-MM-YYYY').format('YYYY-MM-DD'),(resultQuery) => {
             allRepas = JSON.stringify(resultQuery)
-            res.render('pages/page-wrapper', {isConnected:true,userPseudo:req.cookies.userCookie,data_repas:allRepas})
+            let data = [{resultQuery}]
+            res.send(data)
         })
     })   
 })
 
 app.post('/suppRepas',(req,res)=>{
     Db_interact.suppRepas(req.cookies.userCookie, req.body.date, req.body.heure, () =>{
-        Db_interact.getUserRepas(req.cookies.userCookie,req.body.date ,(resultQuery) => {
+        Db_interact.getUserRepas(req.cookies.userCookie,moment(req.body.date,'DD-MM-YYYY').format('YYYY-MM-DD') ,(resultQuery) => {
             allRepas = JSON.stringify(resultQuery)
-            res.render('pages/page-wrapper', {isConnected:true,userPseudo:req.cookies.userCookie,data_repas:allRepas})
+            let data = [{resultQuery}]
+            res.send(data)
         })
     })
 })
@@ -139,6 +142,7 @@ app.post('/prevMonth',(req,res)=>{
         res.send(data)
     })
 })
+
 
 // Port //
 app.listen(8080)

@@ -1,10 +1,11 @@
 <% if(locals.monthNext === undefined) monthNext = null %>
-<% if(locals.monthPrev === undefined) monthPrev = null %>
+<% if(locals.monthPrev === undefined) monthPrev = null %> 
 
 <div id="calendrierRepas">
     <div id="result_data_repas_calendrier" style="display: none;"><%= data_repas %></div>
     <div id="nxtMonth" style="display:none;"><%= monthNext %></div>
     <div id="prevMonth" style="display:none;"><%= monthPrev %></div>
+    <div id="repas_midi_s3" style="display: none;">{{ repas_midi_w3 }}</div>
 
     <div class="nav-table">
         <button id="dtTop" class="btn btn-outline-primary"><i class="far fa-calendar-alt"></i></button>
@@ -134,8 +135,8 @@
                 <thead class="thead-dark">
                     <tr>
                         <th></th>
-                        <th v-for="date in dates_w5" v-if="date.id < 2" :key="date.id"> {{date.date}}</th>
-                        <th v-for="date in dates_w5" v-if="date.id >= 2" :key="date.id" class="outCurentMonth"> {{date.date}}</th>
+                        <th v-for="date in dates_w5" v-if="date.id < lastDay" :key="date.id"> {{date.date}}</th>
+                        <th v-for="date in dates_w5" v-if="date.id >= lastDay" :key="date.id" class="outCurentMonth"> {{date.date}}</th>
                     </tr >
                 </thead>
                 <tbody>
@@ -164,5 +165,5 @@
         <button type="submit" class="btn btn-outline-primary" v-on:click="nxtM"> Mois Suivant<i class="fas fa-chevron-right" style="margin-left: 1em;"></i></button>    
     </div>
     
-    <% include modals %>
 </div>
+<% include modals %>

@@ -166,12 +166,13 @@ body label {
 }
 
 .outCurentMonth{
-    background: repeating-linear-gradient(
-        90deg,
-        #343a403b,
-        #343a403b 10px,
-        #343a4000 10px,
-        #343a4000 20px
-    ) !important;
+    background-color: #343a4026 !important;
     color:unset !important;
+}
+
+.btnSuppRepas{
+    position: absolute;
+    right: 1em;
+    margin: auto;
+    align-self: center;
 }

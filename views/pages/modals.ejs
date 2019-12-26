@@ -1,57 +1,59 @@
 <!-- Modal add repas-->
-<div class="modal fade" id="modal-addRepas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header modal-colored-header bg-success">
-          <h5 class="modal-title" id="exampleModalLabel">Ajouter un nouveau repas</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+<div id="modals">
+
+    <div class="modal fade" id="modal-addRepas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header modal-colored-header bg-success">
+              <h5 class="modal-title" id="exampleModalLabel">Ajouter un nouveau repas</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+                <input type="text" name="date" id="date_add" value="" style="display: none;">
+                <input type="text" name="heure" id="heure_add" value="" style="display: none;">
+                <input type="text" name="id" id="id_add" value="" style="display: none;">
+                <div class="modal-body">
+                    <label>
+                    <input type="checkbox" id="chVege" class="option-input checkbox" name="type_repas" value="vege" />
+                    Plat végétarien
+                    </label>
+                    <label>
+                    <input type="checkbox" id="chVi" class="option-input checkbox" name="type_repas" value="viande" />
+                    Plat de viande
+                    </label>
+                    <label>
+                    <input type="checkbox" id="chPo" class="option-input checkbox" name="type_repas" value="poisson" />
+                    Plat de poisson
+                    </label>
+                </div>
+    
+                <div class="modal-footer">
+                    <button id="btn_addRepas" type="submit" class="ui positive button" @click="addNewRepas" disabled><i class="fas fa-check" style="margin-right: 1em;"></i>Enregistrer</button>
+                    <button type="button" class="ui negative button" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true" style="margin-right: 1em;"></i>Annuler</button>
+                </div>
+          </div>
         </div>
-        <form action="/addRepas" method="post">
-            <input type="text" name="date" id="date_add" value="" style="display: none;">
-            <input type="text" name="heure" id="heure_add" value="" style="display: none;">
-            <div class="modal-body">
-                <label>
-                <input type="checkbox" id="chVege" class="option-input checkbox" name="type_repas" value="vege" />
-                Plat végétarien
-                </label>
-                <label>
-                <input type="checkbox" id="chVi" class="option-input checkbox" name="type_repas" value="viande" />
-                Plat de viande
-                </label>
-                <label>
-                <input type="checkbox" id="chPo" class="option-input checkbox" name="type_repas" value="poisson" />
-                Plat de poisson
-                </label>
-            </div>
-
-            <div class="modal-footer">
-                <button id="btn_addRepas" type="submit" class="ui positive button" disabled><i class="fas fa-check" style="margin-right: 1em;"></i>Enregistrer</button>
-                <button type="button" class="ui negative button" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true" style="margin-right: 1em;"></i>Annuler</button>
-            </div>
-        </form>
-      </div>
     </div>
-</div>
-
-<!-- Modal remove repas-->
-<div id="modal-removeRepas" class="modal fade" tabindex="-1" role="dialog"
-    aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content bg-warning text-white">
-            <div class="modal-body p-4">
-                <div class="text-center">
-                    <i class="dripicons-warning h1 text-warning"></i>
-                    <h4 class="mt-2">Supprimer le repas</h4>
-                    <p class="mt-3">Si vous voulez supprimer le repas cliquer sur continuer</p>
-                    <form action="/suppRepas" method="post">
+    
+    <!-- Modal remove repas-->
+    <div id="modal-removeRepas" class="modal fade" tabindex="-1" role="dialog"
+        aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content bg-warning text-white">
+                <div class="modal-body p-4">
+                    <div class="text-center">
+                        <i class="dripicons-warning h1 text-warning"></i>
+                        <h4 class="mt-2">Supprimer le repas</h4>
+                        <p class="mt-3">Si vous voulez supprimer le repas cliquer sur continuer</p>
                         <input type="text" name="date" id="date_supp" value="" style="display: none;">
                         <input type="text" name="heure" id="heure_supp" value="" style="display: none;">
-                        <button type="submit" class="btn btn-light my-2">Continuer</button>
-                    </form>                        
+                        <input type="text" name="id" id="id_supp" value="" style="display: none;">
+                        <button @click="deleteRepas" type="submit" class="btn btn-light my-2">Continuer</button>                    
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
