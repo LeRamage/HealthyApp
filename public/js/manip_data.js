@@ -46,24 +46,16 @@ let createRepas = (tdow,data_r,heure) => {
 }
 
 let setArrayRepas = (heure,date,vm,id,newValue) => {
-    if( date < 8){
-        if(heure=== 'midi') Vue.set(vm.repas_midi_w1, id, newValue)
-        else if(heure === 'soir') Vue.set(vm.repas_soir_w1, id, newValue)
+    if(moment(date,'DD-MM-YYYY').month() === vm.currentMonth){
+        if(moment(date,'DD-MM-YYYY').date() < 8) heure === 'midi' ? Vue.set(vm.repas_midi_w1, id, newValue) : Vue.set(vm.repas_soir_w1, id, newValue)
+
+        else if(moment(date,'DD-MM-YYYY').date() < 15) heure === 'midi' ? Vue.set(vm.repas_midi_w2, id, newValue) : Vue.set(vm.repas_soir_w2, id, newValue)
+        
+        else if(moment(date,'DD-MM-YYYY').date() < 22) heure === 'midi' ? Vue.set(vm.repas_midi_w3, id, newValue) : Vue.set(vm.repas_soir_w3, id, newValue)
+        
+        else if(moment(date,'DD-MM-YYYY').date() < 29) heure === 'midi' ? Vue.set(vm.repas_midi_w4, id, newValue) : Vue.set(vm.repas_soir_w4, id, newValue)
+        
+        else heure === 'midi' ? Vue.set(vm.repas_midi_w5, id, newValue) : Vue.set(vm.repas_soir_w5, id, newValue)
     }
-    else if(date < 15){
-        if(heure=== 'midi') Vue.set(vm.repas_midi_w2, id, newValue)
-        else if(heure=== 'soir') Vue.set(vm.repas_soir_w2, id, newValue)
-    }
-    else if(date < 22){
-        if(heure=== 'midi') Vue.set(vm.repas_midi_w3, id, newValue)
-        else if(heure === 'soir') Vue.set(vm.repas_soir_w3, id, newValue)
-    }
-    else if(date < 29){
-        if(heure === 'midi') Vue.set(vm.repas_midi_w4, id, newValue)
-        else if(heure === 'soir') Vue.set(vm.repas_soir_w4, id, newValue)
-    }
-    else{
-        if(heure === 'midi') Vue.set(vm.repas_midi_w5, id, newValue)
-        else if(heure === 'soir') Vue.set(vm.repas_soir_w5, id, newValue)
-    }
+    else heure === 'midi' ? Vue.set(vm.repas_midi_w5, id, newValue) : Vue.set(vm.repas_soir_w5, id, newValue)
 }

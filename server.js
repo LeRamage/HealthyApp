@@ -105,9 +105,10 @@ app.post('/inscription', (req, res) =>{
 })
 
 app.post('/addRepas',(req, res) =>{
-    console.log(req.body)
+    let d = req.body.date;
+    if(moment(d,'DD-MM-YYYY').month() != req.body.currentMonth) d = moment(d,'DD-MM-YYYY').subtract(1,'months').format('DD-MM-YYYY')
     Db_interact.addNewRepas(req.cookies.userCookie,req.body.type_repas,req.body.date,req.body.heure,() =>{
-        Db_interact.getUserRepas(req.cookies.userCookie,moment(req.body.date,'DD-MM-YYYY').format('YYYY-MM-DD'),(resultQuery) => {
+        Db_interact.getUserRepas(req.cookies.userCookie,moment(d,'DD-MM-YYYY').format('YYYY-MM-DD'),(resultQuery) => {
             allRepas = JSON.stringify(resultQuery)
             let data = [{resultQuery}]
             res.send(data)
@@ -116,8 +117,10 @@ app.post('/addRepas',(req, res) =>{
 })
 
 app.post('/suppRepas',(req,res)=>{
+    let d = req.body.date;
+    if(moment(d,'DD-MM-YYYY').month() != req.body.currentMonth) d = moment(d,'DD-MM-YYYY').subtract(1,'months').format('DD-MM-YYYY')
     Db_interact.suppRepas(req.cookies.userCookie, req.body.date, req.body.heure, () =>{
-        Db_interact.getUserRepas(req.cookies.userCookie,moment(req.body.date,'DD-MM-YYYY').format('YYYY-MM-DD') ,(resultQuery) => {
+        Db_interact.getUserRepas(req.cookies.userCookie,moment(d,'DD-MM-YYYY').format('YYYY-MM-DD') ,(resultQuery) => {
             allRepas = JSON.stringify(resultQuery)
             let data = [{resultQuery}]
             res.send(data)

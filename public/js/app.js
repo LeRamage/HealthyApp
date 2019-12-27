@@ -41,25 +41,6 @@ if($('#inscription').val() != undefined){
     })
 }
 
-if($('#charts').val() != undefined){
-    vmCharts = new Vue({
-        el:'#charts',
-        data:{ data_rep:JSON.parse(document.getElementById('result_data_repas_pw').textContent),chartCompare:null },
-        mounted:function(){
-            let type_Vi = 0, type_Ve = 0, type_P = 0
-            this.data_rep.forEach(element => {
-                if(element.type_repas === 1) type_Ve++
-                else if(element.type_repas === 2) type_Vi++
-                else if(element.type_repas === 3) type_P++
-            });
-
-            let dt = [type_Ve,type_Vi,type_P]
-            let ctx = document.getElementById('chartCompareRepas')
-            this.chartCompare = createChart(ctx,dt)
-        }
-    })
-}
-
 if($('#calendrierRepas').val() != undefined){
     vmApp = new Vue({
         el:'#calendrierRepas',
@@ -69,6 +50,7 @@ if($('#calendrierRepas').val() != undefined){
         data:{
             nxtMonth:document.getElementById('nxtMonth').textContent,
             prevMonth:document.getElementById('prevMonth').textContent,
+            currentMonth:moment().month(),
             data_r:JSON.parse(document.getElementById('result_data_repas_calendrier').textContent),
             dates_w1:tab_daysOfWeek_init,
             dates_w2:[],
@@ -97,6 +79,7 @@ if($('#calendrierRepas').val() != undefined){
                     success: function(data) {
                         startOfWeek_init = moment(vmApp.nxtMonth,'DD-MM-YYYY').startOf('month')
                         tab_daysOfWeek_init = create_tdow(startOfWeek_init)
+                        vmApp.currentMonth = moment(vmApp.nxtMonth,'DD-MM-YYYY').month()
                         vmApp.lastDay = moment(vmApp.nxtMonth,'DD-MM-YYYY').endOf('month').date() - 28
                         vmApp.data_r = data[0].data_r
                         vmApp.nxtMonth = data[0].nxtMonth
@@ -140,6 +123,7 @@ if($('#calendrierRepas').val() != undefined){
                     success: function(data) {
                         startOfWeek_init = moment(vmApp.prevMonth,'DD-MM-YYYY').startOf('month')
                         tab_daysOfWeek_init = create_tdow(startOfWeek_init)
+                        vmApp.currentMonth = moment(vmApp.prevMonth,'DD-MM-YYYY').month()
                         vmApp.lastDay = moment(vmApp.prevMonth,'DD-MM-YYYY').endOf('month').date() - 28
                         vmApp.data_r = data[0].data_r
                         vmApp.nxtMonth = data[0].nxtMonth
@@ -228,6 +212,23 @@ if($('#calendrierRepas').val() != undefined){
         }
     })
 
+    if($('#charts').val() != undefined){
+        vmCharts = new Vue({
+            el:'#charts',
+            data:{ 
+                data_rep:JSON.parse(document.getElementById('result_data_repas_pw').textContent), 
+                chartCompare:null, 
+                chartComparePercent:null
+            },
+            mounted:function(){
+                let ctx = document.getElementById('chartCompareRepas')
+                this.chartCompare = createChartCompare(ctx,this.data_rep,vmApp)
+                ctx = document.getElementById('chartCompareRepasPercent')
+                this.chartComparePercent = createChartCompararePercent(ctx,this.data_rep,vmApp)
+            }
+        })
+    }
+
     vmModals = new Vue({
         el:'#modals',
         methods:{
@@ -240,23 +241,12 @@ if($('#calendrierRepas').val() != undefined){
                 $.ajax({
                     url:'/suppRepas',
                     type:"POST",
-                    data:{date:d,heure:h},
+                    data:{date:d,heure:h,currentMonth:vmApp.currentMonth},
                     success: function(data) {
                         $('#modal-removeRepas').modal('hide');
-                        let d = moment($('#date_supp').val(),'DD-MM-YYYY').date()
                         setArrayRepas(h,d,vmApp,id,newValue)
-
-                        vmCharts.data_rep = data[0].resultQuery
-                        let type_Vi = 0, type_Ve = 0, type_P = 0
-                        vmCharts.data_rep.forEach(element => {
-                            if(element.type_repas === 1) type_Ve++
-                            else if(element.type_repas === 2) type_Vi++
-                            else if(element.type_repas === 3) type_P++
-                        });
-            
-                        let dt = [type_Ve,type_Vi,type_P]
-                        vmCharts.chartCompare.data.datasets[0].data = dt
-                        vmCharts.chartCompare.update() 
+                        updateChartCompare(data[0].resultQuery,vmCharts,vmApp)
+                        updateChartComparePercent(data[0].resultQuery,vmCharts,vmApp)
                     },
                     error:function(){
                         alert('error ' + textStatus + " " + errorThrown);
@@ -280,23 +270,12 @@ if($('#calendrierRepas').val() != undefined){
                 $.ajax({
                     url:'/addRepas',
                     type:'POST',
-                    data:{type_repas:t_r,date:d,heure:h},
+                    data:{type_repas:t_r,date:d,heure:h,currentMonth:vmApp.currentMonth},
                     success:function(data){
                         $('#modal-addRepas').modal('hide'); 
-                        d = moment($('#date_add').val(),'DD-MM-YYYY').date()
                         setArrayRepas(h,d,vmApp,id,newValue)
-                        
-                        vmCharts.data_rep = data[0].resultQuery
-                        let type_Vi = 0, type_Ve = 0, type_P = 0
-                        vmCharts.data_rep.forEach(element => {
-                            if(element.type_repas === 1) type_Ve++
-                            else if(element.type_repas === 2) type_Vi++
-                            else if(element.type_repas === 3) type_P++
-                        });
-            
-                        let dt = [type_Ve,type_Vi,type_P]
-                        vmCharts.chartCompare.data.datasets[0].data = dt
-                        vmCharts.chartCompare.update()                    
+                        updateChartCompare(data[0].resultQuery,vmCharts,vmApp)
+                        updateChartComparePercent(data[0].resultQuery,vmCharts,vmApp)                  
                     },
                     error:function(){
                         alert('error ' + textStatus + " " + errorThrown);

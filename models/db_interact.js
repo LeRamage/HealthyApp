@@ -30,7 +30,7 @@ class Db_interact{
     static getUserRepas(pseudo,date,cb){
         connexion.query('SELECT ID FROM user WHERE pseudo = ?',[pseudo],(error,result,fields) =>{
             if(error) throw error
-            connexion.query('SELECT type_repas,date,heure_repas FROM userrepas WHERE id_user = ? AND date >= ? AND date <= ? ORDER BY date',[result[0].ID,moment(date,'YYYY-MM-DD').startOf('month').format('YYYY-MM-DD'),moment(date,'YYYY-MM-DD').endOf('month').format('YYYY-MM-DD')],(error,resultTR,field) => {
+            connexion.query('SELECT type_repas,date,heure_repas FROM userrepas WHERE id_user = ? AND date >= ? AND date <= ? ORDER BY date',[result[0].ID,moment(date,'YYYY-MM-DD').startOf('month').format('YYYY-MM-DD'),moment(date,'YYYY-MM-DD').endOf('month').add(6,'d').format('YYYY-MM-DD')],(error,resultTR,field) => {
                 if(error) throw error
                 cb(resultTR)
             })
