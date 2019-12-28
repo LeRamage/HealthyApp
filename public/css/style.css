@@ -1,3 +1,11 @@
+/* Body */
+body{
+    background: -webkit-linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%) !important;
+}
+/* *** */
+
+/* Boutons */
+
 #goToInscription {
     margin-top: 2em;
 }
@@ -6,29 +14,30 @@
     background-color: #80af43;
 }
 
+.btnSuppRepas{
+    position: absolute;
+    right: 1em;
+    margin: auto;
+    align-self: center;
+}
+
+.datepicker{
+    position: absolute !important;
+    top: 17em !important;
+    right: 8em !important;
+    left: unset !important;
+}
+
+.dtDesign{
+    margin-top: 2em;
+}
+
+/* ****** */
+
+/* Navigation bar top */
 .navbarColor{
    background-color: #4380af;
    height: 4em;
-}
-
-body{
-    background: -webkit-linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%) !important;
-}
-
-#footerImg{
-    width: 100%;
-    height: 25em;
-    bottom: 0;
-    position: absolute;
-}
-
-.connexion-container,.inscription-container{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 35%;
-    padding: 5%;
 }
 
 .navbar-brand{
@@ -40,6 +49,25 @@ body{
     margin-left: 5%;
 }
 
+/* #footerImg{
+    width: 100%;
+    height: 25em;
+    bottom: 0;
+    position: absolute;
+} */
+/* ***************** */
+
+
+/*  Connexion et Inscription */
+.connexion-container,.inscription-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35%;
+    padding: 5%;
+}
+
 .greenFont{
     color: #608038 !important;
 }
@@ -47,7 +75,9 @@ body{
 .error{
     top: 1em;
 }
+/* ************************ */
 
+/* Annimation checkbox Ajout repas */
 @keyframes click-wave {
     0% {
         height: 20px;
@@ -127,6 +157,9 @@ body label {
     line-height: 20px;
 }
 
+/* ***********************  */
+
+/* Calendrier repas */
 .iconPlus{
     margin-right: 1em;
 }
@@ -154,25 +187,9 @@ body label {
     margin-bottom: 3em;
 }
 
-.datepicker{
-    position: absolute !important;
-    top: 17em !important;
-    right: 8em !important;
-    left: unset !important;
-}
-
-.dtDesign{
-    margin-top: 2em;
-}
-
 .outCurentMonth{
     background-color: #343a4026 !important;
     color:unset !important;
 }
 
-.btnSuppRepas{
-    position: absolute;
-    right: 1em;
-    margin: auto;
-    align-self: center;
-}
+/* **************** */

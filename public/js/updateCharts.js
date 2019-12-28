@@ -3,9 +3,7 @@ let updateChartCompare = (data,vm,vmApp) => {
     let type_Vi = 0, type_Ve = 0, type_P = 0
     let data_rep = vm.data_rep.filter(el=>{return moment(el.date).month() === vmApp.currentMonth})
     data_rep.forEach(element => {
-        if(element.type_repas === 1) type_Ve++
-        else if(element.type_repas === 2) type_Vi++
-        else if(element.type_repas === 3) type_P++
+        element.type_repas === 1 ? type_Ve++ : element.type_repas === 2 ? type_Vi++ : type_P++
     });
     
     let dt = [type_Ve,type_Vi,type_P]

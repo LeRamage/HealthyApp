@@ -79,7 +79,6 @@ createChartCompararePercent = (element,data_rep,vm) =>{
                     fill:false
                 }
             ]
-
         },  
         options:{
             title:{

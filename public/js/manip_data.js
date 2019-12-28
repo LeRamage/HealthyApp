@@ -26,17 +26,10 @@ let createRepas = (tdow,data_r,heure) => {
         })
     
         if(repas.length > 0){
-            switch(repas[0].type_repas){
-                case 1 :
-                    repas_m.push({id:k,type_repas : vege_template})
-                    break
-                case 2 :
-                    repas_m.push({id:k,type_repas : viande_template})
-                    break
-                case 3 :
-                    repas_m.push({id:k,type_repas : poisson_template})
-                    break
-            }
+            repas[0].type_repas === 1 ? repas_m.push({id:k,type_repas : vege_template})
+            : repas[0].type_repas === 2 ? repas_m.push({id:k,type_repas : viande_template})
+            : repas_m.push({id:k,type_repas : poisson_template})    
+            
         } 
         else
             repas_m.push({id:k,type_repas : add_repas_template})
