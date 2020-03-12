@@ -1,0 +1,132 @@
+<div class="row">
+    <div class="col-md-6">
+        <div class="card shadow-sm border">
+            <div class="card-body">
+                <h3 class="card-title">Ajouter mes Repas du Jour</h3>
+                <hr>
+                <div id="ajoutRepasQuotidien">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="title-repas">Midi</h4>
+
+                            <div class="ajoutRepasJour" v-if="selectedViande_midi !== true && selectedPoisson_midi !== true">
+                                <div class="round round-success"><i class="fas fa-carrot"></i></div>
+                                <button v-if="!selectedVege_midi" class="btn-success btn-ajout-repas-jour" @click="hideOthers('selectedVege_midi')"><p style="font-size: 1.5em;">Végétarien</p></button>
+                                <div class="repasValidated" v-if="RepasJourMidiValidated && selectedVege_midi ">
+                                    <h4 class="textValidation">Repas enregistré</h4>
+                                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>
+                                </div>
+                            </div>
+                            <hr style="width: 80%; margin-left: 10%;" v-if="selectedViande_midi !== true && selectedPoisson_midi !== true">
+
+                            <div class="ajoutRepasJour" v-if="selectedVege_midi !== true && selectedPoisson_midi !== true">
+                                <div class="round round-warning"><i class="fas fa-drumstick-bite"></i></div>
+                                <button v-if="!selectedViande_midi" id="test" class="btn-warning btn-ajout-repas-jour" @click="hideOthers('selectedViande_midi')"><p style="font-size: 1.5em;">Viande</p></button>
+                                <div class="repasValidated" v-if="RepasJourMidiValidated && selectedViande_midi ">
+                                    <h4 class="textValidation">Repas enregistré</h4>
+                                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>
+                                </div>
+                            </div>
+                            <hr style="width: 80%; margin-left: 10%;" v-if="selectedVege_midi !== true && selectedPoisson_midi !== true"> 
+
+                            <div class="ajoutRepasJour" v-if="selectedVege_midi !== true && selectedViande_midi !== true ">
+                                <div class="round round-info"><i class="fas fa-fish"></i></div>
+                                <button v-if="!selectedPoisson_midi" class="btn-info btn-ajout-repas-jour" @click="hideOthers('selectedPoisson_midi')"><p style="font-size: 1.5em;">Poisson</p></button>
+                                <div class="repasValidated" v-if="RepasJourMidiValidated && selectedPoisson_midi ">
+                                    <h4 class="textValidation">Repas enregistré</h4>
+                                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>
+                                </div>
+                            </div>
+                            <hr style="width: 80%; margin-left: 10%;" v-if="selectedVege_midi !== true && selectedViande_midi !== true ">
+                            
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="title-repas">Soir</h4>
+
+                            <div class="ajoutRepasJour" v-if="selectedViande_soir !== true && selectedPoisson_soir !== true">
+                                <div class="round round-success"><i class="fas fa-carrot"></i></div>
+                                <button v-if="!selectedVege_soir" class="btn wawes-effect wawes-light btn-success btn-ajout-repas-jour" @click="hideOthers('selectedVege_soir')"><p style="font-size: 1.5em;">Végétarien</p></button>
+                                <div class="repasValidated" v-if="RepasJourMidiValidated && selectedVege_soir ">
+                                    <h4 class="textValidation">Repas enregistré</h4>
+                                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>
+                                </div>
+                            </div>
+                            <hr style="width: 80%; margin-left: 10%;" v-if="selectedViande_soir !== true && selectedPoisson_soir !== true">
+
+                            <div class="ajoutRepasJour" v-if="selectedVege_soir !== true && selectedPoisson_soir !== true">
+                                <div class="round round-warning"><i class="fas fa-drumstick-bite"></i></div>
+                                <button v-if="!selectedViande_soir" class="btn wawes-effect wawes-light btn-warning btn-ajout-repas-jour" @click="hideOthers('selectedViande_soir')"><p style="font-size: 1.5em;">Viande</p></button>
+                                <div class="repasValidated" v-if="RepasJourMidiValidated && selectedViande_soir ">
+                                    <h4 class="textValidation">Repas enregistré</h4>
+                                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>
+                                </div>
+                            </div>
+                            <hr style="width: 80%; margin-left: 10%;" v-if="selectedVege_soir !== true && selectedPoisson_soir !== true">
+
+                            <div class="ajoutRepasJour" v-if="selectedVege_soir !== true && selectedViande_soir !== true">
+                                <div class="round round-info"><i class="fas fa-fish"></i></div>
+                                <button v-if="!selectedPoisson_soir" class="btn wawes-effect wawes-light btn-info btn-ajout-repas-jour" @click="hideOthers('selectedPoisson_soir')"><p style="font-size: 1.5em;">Poisson</p></button>
+                                <div class="repasValidated" v-if="RepasJourMidiValidated && selectedPoisson_soir ">
+                                    <h4 class="textValidation">Repas enregistré</h4>
+                                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>
+                                </div>
+                            </div>
+                            <hr style="width: 80%; margin-left: 10%;" v-if="selectedVege_soir !== true && selectedViande_soir !== true"> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm border">
+            <div class="card-body">
+                <h3 class="card-title">Recettes du jour</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="card shadow-sm border alignContent">
+            <div class="card-body">
+                <div id="gaugeVege" class="gauge-container"></div>
+                <div class="round round-success round-position"><i class="fas fa-carrot"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card shadow-sm border alignContent">
+            <div class="card-body">
+                <div id="gaugeViande" class="gauge-container"></div>
+                <div class="round round-warning round-position"><i class="fas fa-drumstick-bite"></i></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card shadow-sm border alignContent">
+            <div class="card-body">
+                <div id="gaugePoisson" class="gauge-container"></div>
+                <div class="round round-info round-position"><i class="fas fa-fish"></i></div>                            
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-sm border">
+            <div class="card-body">
+                <canvas id="chartCompareRepas"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6"></div>
+    <div class="col-md-4">
+        <div class="card shadow-sm border">
+            <div class="card-body">
+                <canvas id="chartCompareRepasPercent"></canvas>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,13 +3,13 @@ let express = require('express')
 let app = express()
 let bodyParser = require('body-parser')
 let session = require('express-session')
-let cookie = require('cookie-parser')
+let cookie = require('cookie')
 let Db_interact = require("./models/db_interact")
 let moment = require('moment')
+let cookies = null;
 
 // Donnée de la base //
 let allRepas;
-
 
 // Moteur de Template //
 app.set('view engine', 'ejs')
@@ -23,7 +23,6 @@ app.use('/models',express.static('models'))
 app.use('/pickmeup',express.static('pickMeUp'))
 app.use(bodyParser.urlencoded({ extended :false }))
 app.use(bodyParser.json())
-app.use(cookie())
 app.use(session({
     secret: 'akanzlkrnlkn',
     resave: false,
@@ -36,8 +35,8 @@ app.use(require('./middleware/flash'))
 
 // GET //
 app.get('/', (request,response) => {
-    if(request.cookies.userCookie != undefined)
-        response.render('pages/page-wrapper', {isConnected:true,userPseudo:request.cookies.userCookie,data_repas:allRepas,monthNext:JSON.stringify(moment().startOf('month').add(1,'months').format('DD-MM-YYYY')),monthPrev:JSON.stringify(moment().startOf('month').subtract(1,'months').format('DD-MM-YYYY'))}) 
+    if(cookies != null)
+        response.render('pages/page-wrapper', {isConnected:true,userPseudo:cookies.userPseudo,data_repas:allRepas,monthNext:JSON.stringify(moment().startOf('month').add(1,'months').format('DD-MM-YYYY')),monthPrev:JSON.stringify(moment().startOf('month').subtract(1,'months').format('DD-MM-YYYY'))}) 
     else{
         if(request.query.inscription_success) {
             response.render('pages/index', {isConnected:false,inscription_success:true})
@@ -53,14 +52,14 @@ app.get('/inscription', (req,res) =>{
 })
 
 app.get('/index', (req,res) =>{
-    if(req.cookies.userCookie != undefined)
-        res.clearCookie('userCookie')
+    if(cookies != null)
+        cookies = null
     res.render('pages/index',{isConnected:false,form_success:null})
 })
 
 app.get('/app',(req,res) =>{
-    if(req.cookies.userCookie){
-        res.render('pages/page-wrapper',{isConnected:true,userPseudo:req.cookies.userCookie,data_repas:allRepas,monthNext:JSON.stringify(moment().startOf('month').add(1,'months').format('DD-MM-YYYY')),monthPrev:JSON.stringify(moment().startOf('month').subtract(1,'months').format('DD-MM-YYYY'))})
+    if(cookies.userPseudo){
+        res.render('pages/page-wrapper',{isConnected:true,userPseudo:cookies.userPseudo,data_repas:allRepas,monthNext:JSON.stringify(moment().startOf('month').add(1,'months').format('DD-MM-YYYY')),monthPrev:JSON.stringify(moment().startOf('month').subtract(1,'months').format('DD-MM-YYYY'))})
     }
     else{
         res.render('pages/index',{isConnected:false,form_success:null})
@@ -72,7 +71,11 @@ app.get('/app',(req,res) =>{
 app.post('/', (req,res) =>{
     Db_interact.connectToApp(req.body.pseudo,req.body.password, (resultQuery) =>{
         if(resultQuery.length > 0){
-            res.cookie('userCookie', req.body.pseudo, {maxAge: 360000});
+            cookies = cookie.parse(cookie.serialize('userPseudo', String(req.body.pseudo), {
+                httpOnly: true,
+                maxAge: 60 * 60 * 24 * 7
+            }))
+
             Db_interact.getUserRepas(req.body.pseudo,moment().startOf('month').format('YYYY-MM-DD'),(resultQuery) => {
                 allRepas = JSON.stringify(resultQuery)
                 res.render('pages/page-wrapper', {isConnected:true,userPseudo:req.body.pseudo,data_repas:allRepas,monthNext:JSON.stringify(moment().startOf('month').add(1,'months').format('DD-MM-YYYY')),monthPrev:JSON.stringify(moment().startOf('month').subtract(1,'months').format('DD-MM-YYYY'))})
@@ -107,8 +110,8 @@ app.post('/inscription', (req, res) =>{
 app.post('/addRepas',(req, res) =>{
     let d = req.body.date;
     if(moment(d,'DD-MM-YYYY').month() != req.body.currentMonth) d = moment(d,'DD-MM-YYYY').subtract(1,'months').format('DD-MM-YYYY')
-    Db_interact.addNewRepas(req.cookies.userCookie,req.body.type_repas,req.body.date,req.body.heure,() =>{
-        Db_interact.getUserRepas(req.cookies.userCookie,moment(d,'DD-MM-YYYY').format('YYYY-MM-DD'),(resultQuery) => {
+    Db_interact.addNewRepas(cookies.userPseudo,req.body.type_repas,req.body.date,req.body.heure,() =>{
+        Db_interact.getUserRepas(cookies.userPseudo,moment(d,'DD-MM-YYYY').format('YYYY-MM-DD'),(resultQuery) => {
             allRepas = JSON.stringify(resultQuery)
             let data = [{resultQuery}]
             res.send(data)
@@ -119,17 +122,18 @@ app.post('/addRepas',(req, res) =>{
 app.post('/suppRepas',(req,res)=>{
     let d = req.body.date;
     if(moment(d,'DD-MM-YYYY').month() != req.body.currentMonth) d = moment(d,'DD-MM-YYYY').subtract(1,'months').format('DD-MM-YYYY')
-    Db_interact.suppRepas(req.cookies.userCookie, req.body.date, req.body.heure, () =>{
-        Db_interact.getUserRepas(req.cookies.userCookie,moment(d,'DD-MM-YYYY').format('YYYY-MM-DD') ,(resultQuery) => {
+    Db_interact.suppRepas(cookies.userPseudo, req.body.date, req.body.heure, () =>{
+        Db_interact.getUserRepas(cookies.userPseudo,moment(d,'DD-MM-YYYY').format('YYYY-MM-DD') ,(resultQuery) => {
             allRepas = JSON.stringify(resultQuery)
             let data = [{resultQuery}]
+            console.log("data supp : ")
             res.send(data)
         })
     })
 })
 
 app.post('/nxtMonth',(req,res)=>{
-    Db_interact.getUserRepas(req.cookies.userCookie, moment(req.body.nxt,'DD-MM-YYYY'),(resultQuery) => {
+    Db_interact.getUserRepas(cookies.userPseudo, moment(req.body.nxt,'DD-MM-YYYY'),(resultQuery) => {
         let data = []
         let data_r = resultQuery
         data.push({data_r:data_r, nxtMonth:moment(req.body.nxt,'DD-MM-YYYY').add(1,'months').format('DD-MM-YYYY'), prevMonth:moment(req.body.nxt,'DD-MM-YYYY').subtract(1,'months').format('DD-MM-YYYY') })
@@ -138,14 +142,13 @@ app.post('/nxtMonth',(req,res)=>{
 })
 
 app.post('/prevMonth',(req,res)=>{
-    Db_interact.getUserRepas(req.cookies.userCookie, moment(req.body.prev,'DD-MM-YYYY'),(resultQuery) => {
+    Db_interact.getUserRepas(cookies.userPseudo, moment(req.body.prev,'DD-MM-YYYY'),(resultQuery) => {
         let data = []
         let data_r = resultQuery
         data.push({data_r:data_r, nxtMonth:moment(req.body.prev,'DD-MM-YYYY').add(1,'months').format('DD-MM-YYYY'), prevMonth:moment(req.body.prev,'DD-MM-YYYY').subtract(1,'months').format('DD-MM-YYYY') })
         res.send(data)
     })
 })
-
 
 // Port //
 app.listen(8080)
